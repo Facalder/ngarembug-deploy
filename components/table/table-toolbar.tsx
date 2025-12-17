@@ -33,26 +33,18 @@ export type Filter = {
   options: FilterOption[];
 };
 
-import { cafeType } from "@/db/schema";
-import {
-  CAFE_TYPE_OPTIONS,
-  CONTENT_STATUS_OPTIONS,
-  PRICE_RANGE_OPTIONS,
-  REGION_OPTIONS,
-  REVIEW_STATUS_OPTIONS,
-  VISITOR_TYPE_OPTIONS,
-} from "@/globals/data-options";
+import { createEnumFilter } from "@/lib/enum-utils";
 
 const FILTER_MAPPING: Record<
   string,
-  { label: string; options: readonly any[] }
+  { label: string; options: { value: string; label: string }[] }
 > = {
-  cafeType: { label: "Tipe Kafe", options: CAFE_TYPE_OPTIONS },
-  region: { label: "Wilayah", options: REGION_OPTIONS },
-  priceRange: { label: "Rentang Harga", options: PRICE_RANGE_OPTIONS },
-  contentStatus: { label: "Status", options: CONTENT_STATUS_OPTIONS },
-  reviewStatus: { label: "Status Review", options: REVIEW_STATUS_OPTIONS },
-  visitorType: { label: "Tipe Pengunjung", options: VISITOR_TYPE_OPTIONS },
+  cafeType: createEnumFilter("cafeType", "Tipe Kafe"),
+  region: createEnumFilter("region", "Wilayah"),
+  priceRange: createEnumFilter("priceRange", "Rentang Harga"),
+  contentStatus: createEnumFilter("contentStatus", "Status"),
+  visitorType: createEnumFilter("visitorType", "Tipe Pengunjung"),
+  starRating: createEnumFilter("starRating", "Rating"),
 };
 
 // ... imports
