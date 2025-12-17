@@ -19,6 +19,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
 import { type LoginInputDTO, loginSchema } from "@/schemas/auth.dto";
 
 export function LoginForm() {
@@ -38,17 +39,11 @@ export function LoginForm() {
     setIsLoading(true);
 
     try {
-      const res = await fetch("/api/v1/auth/sign-in", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+      await authClient.signIn.email({
+        email: values.email,
+        password: values.password,
+        rememberMe: values.rememberMe,
       });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || "Gagal login");
-      }
 
       toast.success("Berhasil login!");
       router.replace("/dashboard");

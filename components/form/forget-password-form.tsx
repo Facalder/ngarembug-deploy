@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
 import {
   type ForgotPasswordDTO,
   forgotPasswordSchema,
@@ -35,21 +36,16 @@ export function ForgotPasswordForm() {
     setIsLoading(true);
 
     try {
-      const res = await fetch("/api/v1/auth/forgot-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+      await (authClient as any).forgetPassword({
+        email: values.email,
+        redirectTo: "/reset-password",
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || "Gagal mengirim email reset password");
-      }
-
       toast.success("Email reset password telah dikirim!");
-    } catch (err: any) {
-      toast.error(err?.message || "Terjadi kesalahan");
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Terjadi kesalahan";
+      toast.error(message);
     } finally {
       setIsLoading(false);
     }

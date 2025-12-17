@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
 import { type SignUpDTO, signUpSchema } from "@/schemas/auth.dto";
 
 export function SignupForm() {
@@ -38,17 +39,12 @@ export function SignupForm() {
     setIsLoading(true);
 
     try {
-      const res = await fetch("/api/v1/auth/sign-up", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+      await authClient.signUp.email({
+        email: values.email,
+        password: values.password,
+        name: values.name,
+        image: values.image,
       });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || "Gagal membuat akun");
-      }
 
       toast.success("Selamat anda berhasil membuat akun!", {
         description: "Silahkan periksa email anda untuk melakukan verifikasi",

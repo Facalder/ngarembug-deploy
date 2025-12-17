@@ -1,5 +1,3 @@
-"use client";
-
 import { notFound } from "next/navigation";
 import DashboardTitle from "@/components/dashboard-title";
 import { CafeForm } from "@/components/form/cafe-form";

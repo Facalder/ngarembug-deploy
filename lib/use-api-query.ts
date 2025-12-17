@@ -6,6 +6,13 @@ import { useTableState } from "@/lib/use-table";
 
 interface UseApiQueryOptions {
   apiEndpoint: string;
+  defaults?: {
+    page?: number;
+    limit?: number;
+    sortKey?: string;
+    sortDir?: "asc" | "desc";
+    [key: string]: any;
+  };
 }
 
 interface ApiResponse<T> {
@@ -39,17 +46,22 @@ interface ApiResponse<T> {
  * )
  * ```
  */
-export function useApiQuery<T>({ apiEndpoint }: UseApiQueryOptions) {
+export function useApiQuery<T>({ apiEndpoint, defaults }: UseApiQueryOptions) {
   // Get table state (URL params)
-  const tableState = useTableState();
+  const tableState = useTableState({ defaults });
   const { searchParams } = tableState;
 
-  // Build  URL with query params
-  const endpoint = apiEndpoint.startsWith("/")
-    ? apiEndpoint
-    : `/${apiEndpoint}`;
-  const queryString = searchParams.toString();
-  const url = queryString ? `${endpoint}?${queryString}` : endpoint;
+  // Build URL with query params
+  const endpoint = apiEndpoint.startsWith("/") ? apiEndpoint : `/${apiEndpoint}`;
+  const [baseUrl, existingQuery] = endpoint.split("?");
+  
+  const finalParams = new URLSearchParams(existingQuery);
+  searchParams.forEach((value: string, key: string) => {
+    finalParams.set(key, value);
+  });
+  
+  const queryString = finalParams.toString();
+  const url = queryString ? `${baseUrl}?${queryString}` : baseUrl;
 
   // Fetch data with SWR
   const { data, error, isLoading, isValidating, mutate } = useSWR<

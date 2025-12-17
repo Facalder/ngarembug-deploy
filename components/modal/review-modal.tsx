@@ -5,7 +5,7 @@ import { Loading03Icon, PlusSignIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -48,6 +48,11 @@ export function ReviewModal({ cafeId }: ReviewModalProps) {
     authClient.useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const form = useForm<CreateReview>({
     resolver: zodResolver(createReviewSchema),
@@ -86,9 +91,10 @@ export function ReviewModal({ cafeId }: ReviewModalProps) {
     }
   };
 
-  if (isSessionLoading) {
+  if (!isMounted || isSessionLoading) {
     return (
       <Button disabled variant="outline">
+        <HugeiconsIcon icon={Loading03Icon} className="mr-2 h-4 w-4 animate-spin" />
         Loading...
       </Button>
     );
