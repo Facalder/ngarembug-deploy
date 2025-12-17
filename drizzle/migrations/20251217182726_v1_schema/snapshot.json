@@ -2,36 +2,22 @@
   "version": "8",
   "dialect": "postgres",
   "id": "f004c134-d33d-4a0c-929b-66235a24590b",
-  "prevIds": [
-    "00000000-0000-0000-0000-000000000000"
-  ],
+  "prevIds": ["00000000-0000-0000-0000-000000000000"],
   "ddl": [
     {
-      "values": [
-        "indoor_cafe",
-        "outdoor_cafe",
-        "indoor_outdoor_cafe"
-      ],
+      "values": ["indoor_cafe", "outdoor_cafe", "indoor_outdoor_cafe"],
       "name": "CafeType",
       "entityType": "enums",
       "schema": "public"
     },
     {
-      "values": [
-        "draft",
-        "published",
-        "archived"
-      ],
+      "values": ["draft", "published", "archived"],
       "name": "ContentStatus",
       "entityType": "enums",
       "schema": "public"
     },
     {
-      "values": [
-        "murah",
-        "sedang",
-        "mahal"
-      ],
+      "values": ["murah", "sedang", "mahal"],
       "name": "PriceRange",
       "entityType": "enums",
       "schema": "public"
@@ -52,35 +38,19 @@
       "schema": "public"
     },
     {
-      "values": [
-        "approved",
-        "rejected",
-        "pending"
-      ],
+      "values": ["approved", "rejected", "pending"],
       "name": "ReviewStatus",
       "entityType": "enums",
       "schema": "public"
     },
     {
-      "values": [
-        "satu",
-        "dua",
-        "tiga",
-        "empat",
-        "lima"
-      ],
+      "values": ["satu", "dua", "tiga", "empat", "lima"],
       "name": "StarRating",
       "entityType": "enums",
       "schema": "public"
     },
     {
-      "values": [
-        "keluarga",
-        "pasangan",
-        "solo",
-        "bisnis",
-        "teman"
-      ],
+      "values": ["keluarga", "pasangan", "solo", "bisnis", "teman"],
       "name": "VisitorType",
       "entityType": "enums",
       "schema": "public"
@@ -1847,14 +1817,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "users",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "accounts_user_id_users_id_fkey",
@@ -1864,14 +1830,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "users",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "reviews_user_id_users_id_fkey",
@@ -1881,14 +1843,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "cafe_id"
-      ],
+      "columns": ["cafe_id"],
       "schemaTo": "public",
       "tableTo": "cafes",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "reviews_cafe_id_cafes_id_fkey",
@@ -1898,14 +1856,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "users",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "sessions_user_id_users_id_fkey",
@@ -1914,9 +1868,7 @@
       "table": "sessions"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "accounts_pkey",
       "schema": "public",
@@ -1924,9 +1876,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "cafes_pkey",
       "schema": "public",
@@ -1934,9 +1884,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "facilities_pkey",
       "schema": "public",
@@ -1944,9 +1892,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "images_pkey",
       "schema": "public",
@@ -1954,9 +1900,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "reviews_pkey",
       "schema": "public",
@@ -1964,9 +1908,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "sessions_pkey",
       "schema": "public",
@@ -1974,9 +1916,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "terms_pkey",
       "schema": "public",
@@ -1984,9 +1924,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "users_pkey",
       "schema": "public",
@@ -1994,9 +1932,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "verifications_pkey",
       "schema": "public",
@@ -2005,9 +1941,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "name"
-      ],
+      "columns": ["name"],
       "nullsNotDistinct": false,
       "name": "cafes_name_key",
       "schema": "public",
@@ -2016,9 +1950,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "slug"
-      ],
+      "columns": ["slug"],
       "nullsNotDistinct": false,
       "name": "cafes_slug_key",
       "schema": "public",
@@ -2027,9 +1959,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "phone"
-      ],
+      "columns": ["phone"],
       "nullsNotDistinct": false,
       "name": "cafes_phone_key",
       "schema": "public",
@@ -2038,9 +1968,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "email"
-      ],
+      "columns": ["email"],
       "nullsNotDistinct": false,
       "name": "cafes_email_key",
       "schema": "public",
@@ -2049,9 +1977,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "instagram"
-      ],
+      "columns": ["instagram"],
       "nullsNotDistinct": false,
       "name": "cafes_instagram_key",
       "schema": "public",
@@ -2060,9 +1986,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "map_link"
-      ],
+      "columns": ["map_link"],
       "nullsNotDistinct": false,
       "name": "cafes_map_link_key",
       "schema": "public",
@@ -2071,9 +1995,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "name"
-      ],
+      "columns": ["name"],
       "nullsNotDistinct": false,
       "name": "facilities_name_key",
       "schema": "public",
@@ -2082,9 +2004,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "slug"
-      ],
+      "columns": ["slug"],
       "nullsNotDistinct": false,
       "name": "facilities_slug_key",
       "schema": "public",
@@ -2093,9 +2013,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "token"
-      ],
+      "columns": ["token"],
       "nullsNotDistinct": false,
       "name": "sessions_token_key",
       "schema": "public",
@@ -2104,9 +2022,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "name"
-      ],
+      "columns": ["name"],
       "nullsNotDistinct": false,
       "name": "terms_name_key",
       "schema": "public",
@@ -2115,9 +2031,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "slug"
-      ],
+      "columns": ["slug"],
       "nullsNotDistinct": false,
       "name": "terms_slug_key",
       "schema": "public",
@@ -2126,9 +2040,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "email"
-      ],
+      "columns": ["email"],
       "nullsNotDistinct": false,
       "name": "users_email_key",
       "schema": "public",

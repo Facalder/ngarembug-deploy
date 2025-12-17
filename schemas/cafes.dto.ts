@@ -129,8 +129,6 @@ export const updateCafeSchema = createCafeSchema.partial().extend({
 export type CreateCafe = z.infer<typeof createCafeSchema>;
 export type UpdateCafe = z.infer<typeof updateCafeSchema>;
 
-
-
 export const cafeQuerySchema = z.object({
   id: z.string().optional(),
   slug: z.string().optional(),

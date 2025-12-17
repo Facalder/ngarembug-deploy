@@ -53,10 +53,7 @@ export const createImageSchema = imageSchema.omit({
 // Update schema - all fields optional except id
 export const updateImageSchema = z.object({
   id: z.string().min(1, "ID wajib diisi"),
-  fileName: z
-    .string()
-    .max(255, "Nama file maksimal 255 karakter")
-    .optional(),
+  fileName: z.string().max(255, "Nama file maksimal 255 karakter").optional(),
   filePath: z.string().optional(),
   fileUrl: z.string().url("URL file tidak valid").optional(),
   fileSize: z
@@ -69,10 +66,7 @@ export const updateImageSchema = z.object({
     .max(100, "Mime type maksimal 100 karakter")
     .optional()
     .nullable(),
-  folder: z
-    .string()
-    .max(100, "Nama folder maksimal 100 karakter")
-    .optional(),
+  folder: z.string().max(100, "Nama folder maksimal 100 karakter").optional(),
   category: z
     .string()
     .max(100, "Kategori maksimal 100 karakter")
@@ -80,10 +74,7 @@ export const updateImageSchema = z.object({
     .nullable(),
   alt: z.string().optional().nullable(),
   description: z.string().optional().nullable(),
-  bucket: z
-    .string()
-    .max(50, "Nama bucket maksimal 50 karakter")
-    .optional(),
+  bucket: z.string().max(50, "Nama bucket maksimal 50 karakter").optional(),
 });
 
 // Query schema - for filtering and searching

@@ -24,7 +24,7 @@ export const draftFacilitySchema = z.object({
     .string()
     .min(1, "Nama wajib diisi")
     .max(60, "Nama maksimal 60 karakter"),
-  
+
   // Optional fields with defaults
   slug: z.string().optional(),
   description: z.string().optional().default(""),
@@ -39,10 +39,7 @@ export const updateFacilitySchema = z.object({
     .min(1, "Nama wajib diisi")
     .max(60, "Nama maksimal 60 karakter")
     .optional(),
-  slug: z
-    .string()
-    .max(80, "Slug maksimal 80 karakter")
-    .optional(),
+  slug: z.string().max(80, "Slug maksimal 80 karakter").optional(),
   description: z.string().optional(),
   contentStatus: z.enum(contentStatus.enumValues).optional(),
 });

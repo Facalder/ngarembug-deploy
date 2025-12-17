@@ -1,10 +1,4 @@
-import {
-  index,
-  pgTable,
-  text,
-  timestamp,
-  varchar,
-} from "drizzle-orm/pg-core";
+import { index, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 import { createId } from "@/lib/cuid";
 
 const imagesTable = pgTable.withRLS(

@@ -8,6 +8,6 @@ export default defineConfig({
     url: process.env.DATABASE_URL as string,
   },
   verbose: true,
-  schemaFilter: ['public'],
+  schemaFilter: ["public"],
   strict: true,
 });

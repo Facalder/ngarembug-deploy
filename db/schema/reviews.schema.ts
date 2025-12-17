@@ -1,9 +1,4 @@
-import {
-  pgTable,
-  text,
-  timestamp,
-  varchar,
-} from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 import { createId } from "@/lib/cuid";
 import { cafes } from "./cafes.schema";
 import { starRating, visitorType } from "./enums.schema";
@@ -25,7 +20,7 @@ export const reviews = pgTable.withRLS("reviews", {
 
   review: text("review").notNull(),
   title: varchar("title", { length: 255 }).notNull(),
-  
+
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .defaultNow()
