@@ -39,20 +39,27 @@ export function LoginForm() {
     setIsLoading(true);
 
     try {
-      await authClient.signIn.email({
+      const { error } = await authClient.signIn.email({
         email: values.email,
         password: values.password,
         rememberMe: values.rememberMe,
       });
+
+      if (error) {
+        toast.error("Gagal Masuk", {
+          description: error.message || "Email atau password yang Anda masukkan tidak valid.",
+        });
+        return;
+      }
 
       toast.success("Login Berhasil", {
         description: "Selamat datang kembali! Anda akan diarahkan ke dashboard.",
       });
       router.replace("/dashboard");
       router.refresh();
-    } catch (error: any) {
-      toast.error("Gagal Masuk", {
-        description: error?.message || "Email atau password yang Anda masukkan tidak valid. Silakan coba lagi.",
+    } catch (err: any) {
+      toast.error("Terjadi Kesalahan", {
+        description: err?.message || "Terjadi kesalahan sistem.",
       });
     } finally {
       setIsLoading(false);

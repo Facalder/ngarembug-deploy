@@ -57,10 +57,11 @@ export default async function CafeDetailPage({ params }: PageProps) {
     }
 
     // Fetch reviews
+    // Fetch reviews
     const { data: reviews } = await findReviews({
         cafeId: cafe.id,
         page: 1,
-        limit: 50, // Show reasonable amount of recent reviews
+        limit: 50,
         rating: undefined,
         visitorType: undefined
     });
@@ -77,7 +78,7 @@ export default async function CafeDetailPage({ params }: PageProps) {
                 <CafeDetailInfo
                     cafe={cafe}
                     facilities={(cafe.facilities as { name?: string; slug: string }[]) || []}
-                    reviews={reviews}
+                    reviews={reviews || []}
                 />
             </Container>
         </main>

@@ -19,7 +19,7 @@ interface ReviewListProps {
 }
 
 export function ReviewList({ reviews }: ReviewListProps) {
-    if (reviews.length === 0) {
+    if (!reviews || reviews.length === 0) {
         return (
             <div className="text-center py-8 text-muted-foreground">
                 <p>Belum ada review. Jadilah yang pertama mereview!</p>

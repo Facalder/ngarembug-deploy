@@ -39,12 +39,19 @@ export function SignupForm() {
     setIsLoading(true);
 
     try {
-      await authClient.signUp.email({
+      const { error } = await authClient.signUp.email({
         email: values.email,
         password: values.password,
         name: values.name,
         image: values.image,
       });
+
+      if (error) {
+        toast.error("Gagal Mendaftar", {
+          description: error.message || "Terjadi kesalahan saat pendaftaran.",
+        });
+        return;
+      }
 
       toast.success("Registrasi Berhasil", {
         description: "Akun Anda telah dibuat. Silakan periksa email untuk verifikasi.",
@@ -52,9 +59,9 @@ export function SignupForm() {
 
       router.replace("/");
       router.refresh();
-    } catch (error: any) {
-      toast.error("Gagal Mendaftar", {
-        description: error?.message || "Terjadi kesalahan sistem saat memproses registrasi.",
+    } catch (err: any) {
+      toast.error("Terjadi Kesalahan", {
+        description: err?.message || "Terjadi kesalahan sistem saat memproses registrasi.",
       });
     } finally {
       setIsLoading(false);

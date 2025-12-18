@@ -32,33 +32,33 @@ export const auth = betterAuth({
     },
   },
 
-  emailVerification: {
-    sendVerificationEmail: async ({ user, url }) => {
-      await resend.emails.send({
-        from: `${process.env.EMAIL_SENDER_NAME} <${process.env.EMAIL_SENDER_ADDRESS}>`,
-        to: user.email,
-        subject: "Verify your email",
-        react: VerifyEmail({ username: user.name, verifyUrl: url }),
-      });
-    },
-    sendOnSignUp: true,
-    autoSignInAfterVerification: true,
-  },
+  // emailVerification: {
+  //   sendVerificationEmail: async ({ user, url }) => {
+  //     await resend.emails.send({
+  //       from: `${process.env.EMAIL_SENDER_NAME} <${process.env.EMAIL_SENDER_ADDRESS}>`,
+  //       to: user.email,
+  //       subject: "Verify your email",
+  //       react: VerifyEmail({ username: user.name, verifyUrl: url }),
+  //     });
+  //   },
+  //   sendOnSignUp: true,
+  //   autoSignInAfterVerification: true,
+  // },
 
   emailAndPassword: {
     enabled: true,
-    sendResetPassword: async ({ user, url }) => {
-      await resend.emails.send({
-        from: `${process.env.EMAIL_SENDER_NAME} <${process.env.EMAIL_SENDER_ADDRESS}>`,
-        to: user.email,
-        subject: "Sandi Ngarembug Anda",
-        react: ForgotPasswordEmail({
-          username: user.name,
-          resetUrl: url,
-          userEmail: user.email,
-        }),
-      });
-    },
+    // sendResetPassword: async ({ user, url }) => {
+    //   await resend.emails.send({
+    //     from: `${process.env.EMAIL_SENDER_NAME} <${process.env.EMAIL_SENDER_ADDRESS}>`,
+    //     to: user.email,
+    //     subject: "Sandi Ngarembug Anda",
+    //     react: ForgotPasswordEmail({
+    //       username: user.name,
+    //       resetUrl: url,
+    //       userEmail: user.email,
+    //     }),
+    //   });
+    // },
   },
   plugins: [lastLoginMethod(), nextCookies(), admin()],
   advanced: {
