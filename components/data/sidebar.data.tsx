@@ -1,7 +1,5 @@
 import {
-  Agreement01FreeIcons,
-  Sofa01FreeIcons,
-  Store03FreeIcons,
+  Agreement01FreeIcons, Comment01FreeIcons, FavouriteIcon, Sofa01FreeIcons, Store03FreeIcons
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import type { SidebarData, User } from "@/components/types/nav.types";
@@ -26,6 +24,16 @@ export const sidebarData: SidebarData = {
           title: "Fasilitas Cafe",
           to: "/dashboard/facilities",
           icon: () => <HugeiconsIcon icon={Sofa01FreeIcons} />,
+        },
+        {
+          title: "Review",
+          to: "/dashboard/reviews",
+          icon: () => <HugeiconsIcon icon={Comment01FreeIcons} />,
+        },
+        {
+          title: "Rekomendasi User",
+          to: "/dashboard/user-recommendations",
+          icon: () => <HugeiconsIcon icon={FavouriteIcon} />,
         },
         {
           title: "Syarat dan Ketentuan",

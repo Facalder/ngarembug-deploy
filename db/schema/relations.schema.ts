@@ -1,5 +1,6 @@
 import { defineRelations } from "drizzle-orm";
 import { accounts } from "@/db/schema/accounts.schema";
+import { cafeRecommendations } from "@/db/schema/cafe-recommendations.schema";
 import { cafes } from "@/db/schema/cafes.schema";
 import { reviews } from "@/db/schema/reviews.schema";
 import { sessions } from "@/db/schema/sessions.schema";
@@ -13,6 +14,7 @@ const schema = {
   sessions,
   accounts,
   reviews,
+  cafeRecommendations,
 };
 
 export const relations = defineRelations(schema, (r) => ({
@@ -44,6 +46,13 @@ export const relations = defineRelations(schema, (r) => ({
     cafe: r.one.cafes({
       from: r.reviews.cafeId,
       to: r.cafes.id,
+    }),
+  },
+
+  cafeRecommendations: {
+    user: r.one.users({
+      from: r.cafeRecommendations.userId,
+      to: r.users.id,
     }),
   },
 

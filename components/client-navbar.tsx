@@ -1,10 +1,8 @@
 "use client";
 
 import {
-    CreditCardIcon,
     Logout02Icon,
     Menu01Icon,
-    Notification01Icon,
     UserCircle02Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -107,30 +105,6 @@ export function ClientNavbar() {
                                             </p>
                                         </div>
                                     </DropdownMenuLabel>
-                                    <DropdownMenuSeparator />
-                                    <DropdownMenuGroup>
-                                        <DropdownMenuItem className="cursor-pointer">
-                                            <HugeiconsIcon
-                                                icon={UserCircle02Icon}
-                                                className="mr-2 h-4 w-4"
-                                            />
-                                            <span>Profile</span>
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem className="cursor-pointer">
-                                            <HugeiconsIcon
-                                                icon={CreditCardIcon}
-                                                className="mr-2 h-4 w-4"
-                                            />
-                                            <span>Billing</span>
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem className="cursor-pointer">
-                                            <HugeiconsIcon
-                                                icon={Notification01Icon}
-                                                className="mr-2 h-4 w-4"
-                                            />
-                                            <span>Notifications</span>
-                                        </DropdownMenuItem>
-                                    </DropdownMenuGroup>
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem
                                         onClick={handleLogout}

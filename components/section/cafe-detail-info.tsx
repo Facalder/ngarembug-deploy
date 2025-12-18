@@ -6,6 +6,7 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ReviewModal } from "@/components/modal/review-modal";
+import { ReviewList } from "@/components/section/review-list";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -23,9 +24,14 @@ interface CafeDetailInfoProps {
         name?: string;
         slug: string;
     }[];
+    reviews: any[]; // Ideally strict type, but using any for now to match repository output quickly
 }
 
-export function CafeDetailInfo({ cafe, facilities }: CafeDetailInfoProps) {
+export function CafeDetailInfo({
+    cafe,
+    facilities,
+    reviews,
+}: CafeDetailInfoProps) {
     return (
         <div className="py-8 grid gap-8 md:grid-cols-[2fr_1fr]">
             {/* Main Content */}
@@ -42,10 +48,7 @@ export function CafeDetailInfo({ cafe, facilities }: CafeDetailInfoProps) {
                     {facilities.length > 0 ? (
                         <div className="flex flex-wrap gap-2">
                             {facilities.map((facility, idx) => (
-                                <Badge
-                                    key={idx.toString()}
-                                    variant="secondary"
-                                >
+                                <Badge key={idx.toString()} variant="secondary">
                                     {facility.name || facility.slug}
                                 </Badge>
                             ))}
@@ -58,12 +61,13 @@ export function CafeDetailInfo({ cafe, facilities }: CafeDetailInfoProps) {
                 </section>
 
                 <section>
-                    <h2 className="text-2xl font-bold mb-4">Reviews</h2>
-                    <div className="rounded-lg border border-dashed p-8 text-center bg-muted/30">
-                        <p className="text-muted-foreground mb-4">
-                            Belum ada review. Jadilah yang pertama mereview!
-                        </p>
+                    <div className="flex items-center justify-between mb-6">
+                        <h2 className="text-2xl font-bold">Reviews ({reviews.length})</h2>
                         <ReviewModal cafeId={cafe.id} />
+                    </div>
+
+                    <div className="bg-muted/10 rounded-xl p-6 border">
+                        <ReviewList reviews={reviews} />
                     </div>
                 </section>
             </div>

@@ -54,20 +54,43 @@ export async function generateMetadata({
     };
 }
 
+import { findReviews } from "@/repositories/reviews.repositories";
+
 export default async function CafeDetailPage({ params }: PageProps) {
     const { slug } = await params;
-    const cafe = await getCafe(slug);
+
+    // Parallel fetching for performance
+    const cafeData = getCafe(slug);
+
+    // We need cafe data first to get ID for reviews, but let's see if we can get it differently.
+    // getCafe returns ID. So we must await cafe first.
+
+    const cafe = await cafeData;
 
     if (!cafe) {
         notFound();
     }
+
+    // Fetch reviews
+    const { data: reviews } = await findReviews({
+        cafeId: cafe.id,
+        page: 1,
+        limit: 50 // Show reasonable amount of recent reviews
+        ,
+        rating: undefined,
+        visitorType: undefined
+    });
 
     return (
         <main className="min-h-screen bg-background pb-12">
             <CafeDetailHeader cafe={cafe} />
 
             <Container size="lg" className="mt-8">
-                <CafeDetailInfo cafe={cafe} facilities={cafe.facilities || []} />
+                <CafeDetailInfo
+                    cafe={cafe}
+                    facilities={cafe.facilities || []}
+                    reviews={reviews}
+                />
             </Container>
         </main>
     );

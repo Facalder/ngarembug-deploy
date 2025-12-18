@@ -68,7 +68,7 @@ export function ReviewModal({ cafeId }: ReviewModalProps) {
   const onSubmit = async (values: CreateReview) => {
     setIsLoading(true);
     try {
-      const res = await fetch("/api/v1/reviews", {
+      const res = await fetch("/api/reviews", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
