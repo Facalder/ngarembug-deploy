@@ -3,15 +3,11 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { admin, lastLoginMethod } from "better-auth/plugins";
 // import { config } from "dotenv";
-import { Resend } from "resend";
-import ForgotPasswordEmail from "@/components/emails/reset-password";
-import VerifyEmail from "@/components/emails/verify-email";
 import { db } from "@/db"; // your drizzle instance
 import * as schema from "@/db/schema";
 
 // config({ path: ".env" });
 
-const resend = new Resend(process.env.RESEND_API_KEY as string);
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -65,9 +61,17 @@ export const auth = betterAuth({
     cookiePrefix: "secure-app",
     useSecureCookies: process.env.NODE_ENV === "production",
     generateId: () => crypto.randomUUID(),
+    crossSubDomainCookies: {
+      enabled: true, // ⭐ PENTING untuk Vercel preview deployments
+    },
   },
   session: {
     expiresIn: 60 * 60 * 24 * 7, // 7 days
     updateAge: 60 * 60 * 24, // 1 day
   },
+  trustedOrigins: [
+    "http://localhost:3000",
+    "https://ngarembug.vercel.app",
+    "https://*.vercel.app",
+  ]
 });
