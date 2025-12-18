@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import useSWR from "swr";
 import { AreaCafeSection } from "@/components/section/area-cafe-section";
 import { CafeSection } from "@/components/section/cafe-section";
@@ -46,7 +46,7 @@ export default function Home() {
   };
 
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <HeroSection />
 
       {isTrendingLoading ? (
@@ -65,6 +65,6 @@ export default function Home() {
         selectedArea={selectedArea}
         onAreaChange={setSelectedArea}
       />
-    </>
+    </Suspense>
   );
 }
