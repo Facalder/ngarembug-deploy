@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loading03Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -22,7 +21,6 @@ import { authClient } from "@/lib/auth-client";
 import { type SignUpDTO, signUpSchema } from "@/schemas/auth.dto";
 
 export function SignupForm() {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<SignUpDTO>({
@@ -54,11 +52,10 @@ export function SignupForm() {
       }
 
       toast.success("Registrasi Berhasil", {
-        description: "Akun Anda telah dibuat. Silakan periksa email untuk verifikasi.",
+        description: "Akun Anda telah dibuat. Anda akan diarahkan ke halaman utama.", // Updated message since verification might be off
       });
 
-      router.replace("/");
-      router.refresh();
+      window.location.href = "/";
     } catch (err: any) {
       toast.error("Terjadi Kesalahan", {
         description: err?.message || "Terjadi kesalahan sistem saat memproses registrasi.",
