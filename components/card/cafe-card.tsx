@@ -11,13 +11,13 @@ interface CafeCardProps {
     rating: number;
     reviewCount: number;
     name: string;
-    area: string;
-    category: string;
-    distance: string;
-    openingHours: string;
+    region: string;
+    cafeType: string;
+    distance: number;
     priceRange: string;
-    capacity: string;
-    facilities: string[];
+    pricePerPerson: number;
+    capacity: number;
+    facilities: { name?: string; slug: string }[] | string[];
     orientation?: "vertical" | "horizontal";
 }
 
@@ -27,21 +27,37 @@ const CafeCardComponent = ({
     rating,
     reviewCount,
     name,
-    area,
-    category,
+    region,
+    cafeType,
     distance,
-    openingHours,
     priceRange,
+    pricePerPerson,
     capacity,
     facilities,
     orientation = "vertical",
 }: CafeCardProps) => {
     const isHorizontal = orientation === "horizontal";
 
+    // Helper to format enums (e.g., "indoor_cafe" -> "Indoor Cafe")
+    const formatEnum = (str: string, fallback: string = "Info tidak tersedia") => {
+        if (!str) return fallback;
+        return str
+            .replace(/_/g, " ")
+            .split(" ")
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ");
+    };
+
+    // Helper to format price (e.g., 25000 -> "Rp 25.000")
+    const formatPrice = (price: number) => {
+        if (!price) return "Belum ada info"; // Zero or missing likely means unknown
+        return `Rp ${price.toLocaleString("id-ID")}`;
+    };
+
     return (
         <Link href={href} className="block group w-full">
             <Card
-                className={`ring-0 p-0 gap-0 bg-transparent outline-none shadow-none rounded-none w-full ${isHorizontal ? "flex gap-6" : ""}`}
+                className={`ring-0 border-0 p-0 gap-0 bg-transparent outline-none shadow-none rounded-none w-full ${isHorizontal ? "flex gap-6" : ""}`}
             >
                 {/* Image Section */}
                 <ResponsiveImage
@@ -68,11 +84,11 @@ const CafeCardComponent = ({
                     {/* Rating & Status */}
                     <div className="flex items-center gap-2 mb-0.5">
                         <span className="flex items-center justify-center bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded-lg">
-                            {rating.toFixed(1)}
+                            {rating ? Number(rating).toFixed(1) : "0.0"}
                         </span>
                         <span className="text-sm font-bold text-foreground">Approved</span>
                         <span className="text-xs text-muted-foreground">
-                            ({reviewCount} Google Reviews)
+                            ({reviewCount} Reviews)
                         </span>
                     </div>
 
@@ -81,47 +97,48 @@ const CafeCardComponent = ({
                         {name}
                     </h3>
 
-                    {/* Metadata: Area • Category • Distance */}
+                    {/* Metadata: Region • Type • Distance */}
                     <div className="text-sm text-muted-foreground mb-4">
-                        {area} • {category} • {distance}
+                        {formatEnum(region, "Lokasi Belum Tersedia")} • {formatEnum(cafeType, "Tipe Belum Tersedia")} • {distance} km
                     </div>
 
                     {/* Info Grid */}
                     <div className="grid grid-cols-3 gap-4 mb-4">
                         <div className="flex flex-col gap-1">
-                            <span className="text-xs text-muted-foreground">
-                                Opening Hours
-                            </span>
+                            <span className="text-xs text-muted-foreground">Price/Person</span>
                             <span className="text-sm font-semibold text-foreground truncate">
-                                {openingHours}
+                                {formatPrice(pricePerPerson)}
                             </span>
                         </div>
                         <div className="flex flex-col gap-1">
-                            <span className="text-xs text-muted-foreground">Start From</span>
+                            <span className="text-xs text-muted-foreground">Range</span>
                             <span className="text-sm font-semibold text-foreground truncate">
-                                {priceRange}
+                                {formatEnum(priceRange, "-")}
                             </span>
                         </div>
                         <div className="flex flex-col gap-1">
-                            <span className="text-xs text-muted-foreground">Kapasitas</span>
+                            <span className="text-xs text-muted-foreground">Capacity</span>
                             <span className="text-sm font-semibold text-foreground truncate">
-                                {capacity}
+                                {capacity || "-"} Pax
                             </span>
                         </div>
                     </div>
 
                     {/* Facilities */}
-                    {facilities.length > 0 && (
+                    {facilities && facilities.length > 0 && (
                         <div className="flex flex-wrap gap-2 mt-auto">
-                            {facilities.slice(0, 3).map((facility) => (
-                                <Badge
-                                    key={facility}
-                                    variant="secondary"
-                                    className="bg-muted text-muted-foreground font-normal rounded-md px-2 py-0.5 text-xs pointer-events-none"
-                                >
-                                    {facility}
-                                </Badge>
-                            ))}
+                            {facilities.slice(0, 3).map((facility, idx) => {
+                                const label = typeof facility === 'string' ? facility : (facility.name || facility.slug);
+                                return (
+                                    <Badge
+                                        key={idx.toString()}
+                                        variant="secondary"
+                                        className="bg-muted text-muted-foreground font-normal rounded-md px-2 py-0.5 text-xs pointer-events-none"
+                                    >
+                                        {label}
+                                    </Badge>
+                                );
+                            })}
                             {facilities.length > 3 && (
                                 <Badge
                                     variant="secondary"

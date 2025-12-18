@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { Container } from "@/components/container-layout";
 import { CafeDetailHeader } from "@/components/section/cafe-detail-header";
 import { CafeDetailInfo } from "@/components/section/cafe-detail-info";
+import { findCafes } from "@/repositories/cafes.repositories";
+import { findReviews } from "@/repositories/reviews.repositories";
 
 // Revalidate every 5 minutes
 export const revalidate = 300;
@@ -11,32 +13,21 @@ interface PageProps {
     params: Promise<{ slug: string }>;
 }
 
-async function getCafe(slug: string) {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+export async function generateStaticParams() {
+    // Cast to any to bypass strict Zod inferred type mismatch for optional fields
+    const { data } = await findCafes({ limit: 1000, contentStatus: ["published"] } as any);
 
-    try {
-        const res = await fetch(
-            `${baseUrl}/api/cafes?slug=${slug}&contentStatus=published`,
-            {
-                next: { revalidate: 300 },
-            },
-        );
-
-        if (!res.ok) return null;
-
-        const json = await res.json();
-        return json.data?.[0] || null;
-    } catch (error) {
-        console.error("Error fetching cafe:", error);
-        return null;
-    }
+    return data.map((cafe) => ({
+        slug: cafe.slug,
+    }));
 }
 
 export async function generateMetadata({
     params,
 }: PageProps): Promise<Metadata> {
     const { slug } = await params;
-    const cafe = await getCafe(slug);
+    const { data } = await findCafes({ slug, contentStatus: ["published"] } as any);
+    const cafe = data[0];
 
     if (!cafe) {
         return {
@@ -54,18 +45,12 @@ export async function generateMetadata({
     };
 }
 
-import { findReviews } from "@/repositories/reviews.repositories";
-
 export default async function CafeDetailPage({ params }: PageProps) {
     const { slug } = await params;
 
-    // Parallel fetching for performance
-    const cafeData = getCafe(slug);
-
-    // We need cafe data first to get ID for reviews, but let's see if we can get it differently.
-    // getCafe returns ID. So we must await cafe first.
-
-    const cafe = await cafeData;
+    // Fetch cafe directly from repository
+    const { data } = await findCafes({ slug, contentStatus: ["published"] } as any);
+    const cafe = data[0];
 
     if (!cafe) {
         notFound();
@@ -75,20 +60,23 @@ export default async function CafeDetailPage({ params }: PageProps) {
     const { data: reviews } = await findReviews({
         cafeId: cafe.id,
         page: 1,
-        limit: 50 // Show reasonable amount of recent reviews
-        ,
+        limit: 50, // Show reasonable amount of recent reviews
         rating: undefined,
         visitorType: undefined
     });
 
     return (
         <main className="min-h-screen bg-background pb-12">
-            <CafeDetailHeader cafe={cafe} />
+            <CafeDetailHeader cafe={{
+                ...cafe,
+                averageRating: cafe.averageRating || 0,
+                totalReviews: cafe.totalReviews || 0,
+            }} />
 
             <Container size="lg" className="mt-8">
                 <CafeDetailInfo
                     cafe={cafe}
-                    facilities={cafe.facilities || []}
+                    facilities={(cafe.facilities as { name?: string; slug: string }[]) || []}
                     reviews={reviews}
                 />
             </Container>

@@ -217,7 +217,7 @@ export function ClientNavbar() {
                                             </Link>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem asChild>
-                                            <Link href="/recommend" className="w-full cursor-pointer">
+                                            <Link href="/user-recommendation" className="w-full cursor-pointer">
                                                 Beri Rekomendasi
                                             </Link>
                                         </DropdownMenuItem>

@@ -83,17 +83,13 @@ function SearchPageContent() {
                                         name={cafe.name}
                                         rating={cafe.averageRating || 0}
                                         reviewCount={cafe.totalReviews || 0}
-                                        area={cafe.region}
-                                        category={cafe.cafeType ? cafe.cafeType.replace(/_/g, " ") : ""}
-                                        distance={cafe.distance ? `${cafe.distance}km` : "N/A"}
-                                        openingHours={
-                                            cafe.openingTime && cafe.closingTime
-                                                ? `${cafe.openingTime} - ${cafe.closingTime}`
-                                                : "See details"
-                                        }
+                                        region={cafe.region}
+                                        cafeType={cafe.cafeType}
+                                        distance={cafe.distance || 0}
                                         priceRange={cafe.priceRange}
-                                        capacity={cafe.capacity ? `${cafe.capacity} pax` : "N/A"}
-                                        facilities={cafe.facilities?.map((f: any) => f.name) || []}
+                                        pricePerPerson={cafe.pricePerPerson || 0}
+                                        capacity={cafe.capacity || 0}
+                                        facilities={cafe.facilities || []}
                                     />
                                 ))}
                             </div>

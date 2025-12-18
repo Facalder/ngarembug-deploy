@@ -8,14 +8,21 @@ interface Cafe {
     image: string
     rating: number
     reviewCount: number
-    area: string
-    type: string
-    distance: string
-    openingHours: string
+
+    // Updated fields
+    region: string
+    cafeType: string
+    distance: number
     priceRange: string
-    capacity: string
-    facilities: string[]
+    pricePerPerson: number
+    capacity: number
+    facilities: { name?: string; slug: string }[] | string[]
     slug?: string
+
+    // Legacy fields (optional if still used elsewhere, but ideally remove)
+    area?: string
+    type?: string
+    openingHours?: string
 }
 
 interface CafeSectionProps {
@@ -51,11 +58,11 @@ export function CafeSection({
                         rating={cafe.rating}
                         reviewCount={cafe.reviewCount}
                         name={cafe.name}
-                        area={cafe.area}
-                        category={cafe.type}
+                        region={cafe.region}
+                        cafeType={cafe.cafeType}
                         distance={cafe.distance}
-                        openingHours={cafe.openingHours}
                         priceRange={cafe.priceRange}
+                        pricePerPerson={cafe.pricePerPerson}
                         capacity={cafe.capacity}
                         facilities={cafe.facilities}
                     />

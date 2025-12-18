@@ -31,16 +31,23 @@ export default function Home() {
         image: cafe.thumbnail || PLACEHODER_IMAGE,
         rating: cafe.averageRating || 0,
         reviewCount: cafe.totalReviews || 0,
+
+        // Pass raw values for new CafeCard
+        region: cafe.region,
+        cafeType: cafe.cafeType,
+        distance: cafe.distance || 0,
+        priceRange: cafe.priceRange,
+        pricePerPerson: cafe.pricePerPerson || 0,
+        capacity: cafe.capacity || 0,
+        facilities: cafe.facilities || [],
+        slug: cafe.slug,
+
+        // Legacy mappings (can be removed if CafeSection interface is updated)
         area: cafe.region,
         type: cafe.cafeType,
-        distance: cafe.distance || "N/A",
         openingHours: cafe.openingTime
           ? `${cafe.openingTime} - ${cafe.closingTime}`
-          : "Lihat detail",
-        priceRange: cafe.priceRange,
-        capacity: cafe.capacity ? `${cafe.capacity} orang` : "N/A",
-        facilities: cafe.facilities?.map((f: any) => f.name || f.slug) || [],
-        slug: cafe.slug,
+          : undefined,
       })) || []
     );
   };

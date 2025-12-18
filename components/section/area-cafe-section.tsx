@@ -15,12 +15,10 @@ import {
     CommandList,
 } from "@/components/ui/command";
 import {
-    Empty,
-    EmptyContent,
-    EmptyDescription,
+    Empty, EmptyDescription,
     EmptyHeader,
     EmptyMedia,
-    EmptyTitle,
+    EmptyTitle
 } from "@/components/ui/empty";
 import {
     Popover,
@@ -117,11 +115,11 @@ export function AreaCafeSection({
                             rating={cafe.rating}
                             reviewCount={cafe.reviewCount}
                             name={cafe.name}
-                            area={cafe.area}
-                            category={cafe.category}
-                            distance={cafe.distance}
-                            openingHours={cafe.openingHours}
+                            region={cafe.region} // Assuming API returns region name or enum
+                            cafeType={cafe.cafeType} // Assuming API returns cafeType enum
+                            distance={cafe.distance} // Assuming API returns number
                             priceRange={cafe.priceRange}
+                            pricePerPerson={cafe.pricePerPerson}
                             capacity={cafe.capacity}
                             facilities={cafe.facilities}
                         />
