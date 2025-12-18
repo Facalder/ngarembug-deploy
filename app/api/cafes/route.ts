@@ -78,7 +78,6 @@ export async function POST(request: NextRequest) {
       {
         error: "Internal Server Error",
         details: error?.message || String(error),
-        P,
       },
       { status: 500 },
     );
