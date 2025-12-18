@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
 
     if (!parsedParams.success) {
       return NextResponse.json(
-        { error: "Invalid parameters", details: parsedParams.error.flatten() },
+        { error: "Parameter tidak valid", details: parsedParams.error.flatten() },
         { status: 400 },
       );
     }
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
     console.error("Error fetching recommendations:", error);
     return NextResponse.json(
       {
-        error: "Internal Server Error",
+        error: "Terjadi kesalahan pada server",
         details: error instanceof Error ? error.message : String(error),
       },
       { status: 500 },
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
     });
 
     if (!session?.user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: "Akses Ditolak: Anda harus login." }, { status: 401 });
     }
 
     const body = await req.json();
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       {
-        message: "Recommendation created successfully",
+        message: "Rekomendasi berhasil dibuat",
         data: recommendation,
       },
       { status: 201 },
@@ -70,13 +70,13 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: "Validation error", details: error.issues },
+        { error: "Validasi gagal", details: error.issues },
         { status: 400 },
       );
     }
     console.error("Error creating recommendation:", error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: "Terjadi kesalahan pada server" },
       { status: 500 },
     );
   }
@@ -89,7 +89,7 @@ export async function PUT(request: NextRequest) {
 
     if (!id) {
       return NextResponse.json(
-        { error: "ID is required for updates" },
+        { error: "ID diperlukan untuk pembaharuan" },
         { status: 400 },
       );
     }
@@ -99,7 +99,7 @@ export async function PUT(request: NextRequest) {
 
     if (!updated) {
       return NextResponse.json(
-        { error: "Recommendation not found" },
+        { error: "Rekomendasi tidak ditemukan" },
         { status: 404 },
       );
     }
@@ -108,14 +108,14 @@ export async function PUT(request: NextRequest) {
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: "Validation error", details: error.flatten() },
+        { error: "Validasi gagal", details: error.flatten() },
         { status: 400 },
       );
     }
 
     console.error("Error updating recommendation:", error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: "Terjadi kesalahan pada server" },
       { status: 500 },
     );
   }

@@ -77,15 +77,19 @@ export function ReviewModal({ cafeId }: ReviewModalProps) {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || "Gagal mengirim review");
+        throw new Error(data.error || "Gagal mengirim ulasan");
       }
 
-      toast.success("Review berhasil dikirim!");
+      toast.success("Ulasan Terkirim", {
+        description: "Terima kasih! Ulasan Anda telah berhasil disimpan.",
+      });
       form.reset();
       setIsOpen(false);
       router.refresh();
     } catch (error: any) {
-      toast.error(error.message || "Terjadi kesalahan");
+      toast.error("Gagal Mengirim Ulasan", {
+        description: error.message || "Terjadi kesalahan pada sistem.",
+      });
     } finally {
       setIsLoading(false);
     }

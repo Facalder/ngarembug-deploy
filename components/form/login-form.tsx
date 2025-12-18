@@ -45,13 +45,15 @@ export function LoginForm() {
         rememberMe: values.rememberMe,
       });
 
-      toast.success("Berhasil login!");
+      toast.success("Login Berhasil", {
+        description: "Selamat datang kembali! Anda akan diarahkan ke dashboard.",
+      });
       router.replace("/dashboard");
       router.refresh();
     } catch (error: any) {
-      toast.error(
-        error?.message || "Email atau password salah. Silakan coba lagi.",
-      );
+      toast.error("Gagal Masuk", {
+        description: error?.message || "Email atau password yang Anda masukkan tidak valid. Silakan coba lagi.",
+      });
     } finally {
       setIsLoading(false);
     }

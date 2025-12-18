@@ -1,19 +1,29 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { auth } from "@/lib/auth";
-import { createReview, findReviews, updateReview } from "@/repositories/reviews.repositories";
-import { createReviewSchema, reviewQuerySchema, updateReviewSchema } from "@/schemas/reviews.dto";
-import { id } from "zod/v4/locales";
+import {
+  createReview,
+  findReviews,
+  updateReview,
+} from "@/repositories/reviews.repositories";
+import {
+  createReviewSchema,
+  reviewQuerySchema,
+  updateReviewSchema,
+} from "@/schemas/reviews.dto";
 
 export async function GET(request: NextRequest) {
   try {
     const searchParams = Object.fromEntries(request.nextUrl.searchParams);
-    
+
     const parsedParams = reviewQuerySchema.safeParse(searchParams);
-    
+
     if (!parsedParams.success) {
       return NextResponse.json(
-        { error: "Invalid parameters", details: parsedParams.error.flatten() },
+        {
+          error: "Parameter tidak valid",
+          details: parsedParams.error.flatten(),
+        },
         { status: 400 },
       );
     }
@@ -25,7 +35,7 @@ export async function GET(request: NextRequest) {
     console.error("Error fetching reviews:", error);
     return NextResponse.json(
       {
-        error: "Internal Server Error",
+        error: "Terjadi kesalahan pada server",
         details: error instanceof Error ? error.message : String(error),
       },
       { status: 500 },
@@ -40,7 +50,10 @@ export async function POST(req: NextRequest) {
     });
 
     if (!session?.user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Akses Ditolak: Anda harus login." },
+        { status: 401 },
+      );
     }
 
     const body = await req.json();
@@ -48,20 +61,23 @@ export async function POST(req: NextRequest) {
 
     const review = await createReview(session.user.id, validatedData);
 
-    return NextResponse.json({
-      message: "Review created successfully",
-      data: review,
-    }, { status: 201 });
+    return NextResponse.json(
+      {
+        message: "Ulasan berhasil dibuat",
+        data: review,
+      },
+      { status: 201 },
+    );
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: "Validation error", details: error.issues },
+        { error: "Validasi gagal", details: error.issues },
         { status: 400 },
       );
     }
     console.error("Error creating review:", error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: "Terjadi kesalahan pada server" },
       { status: 500 },
     );
   }
@@ -70,20 +86,14 @@ export async function POST(req: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json();
-
-    if (!id) {
-      return NextResponse.json(
-        { error: "ID is required for updates" },
-        { status: 400 },
-      );
-    }
-
     const parsedData = updateReviewSchema.parse(body);
-    const updated = await updateReview(id, parsedData);
+    const { id, ...updateData } = parsedData;
+
+    const updated = await updateReview(id, updateData);
 
     if (!updated) {
       return NextResponse.json(
-        { error: "Review not found" },
+        { error: "Ulasan tidak ditemukan" },
         { status: 404 },
       );
     }
@@ -92,14 +102,14 @@ export async function PUT(request: NextRequest) {
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: "Validation error", details: error.flatten() },
+        { error: "Validasi gagal", details: error.flatten() },
         { status: 400 },
       );
     }
 
     console.error("Error updating review:", error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: "Terjadi kesalahan pada server" },
       { status: 500 },
     );
   }

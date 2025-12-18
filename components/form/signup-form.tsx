@@ -46,14 +46,16 @@ export function SignupForm() {
         image: values.image,
       });
 
-      toast.success("Selamat anda berhasil membuat akun!", {
-        description: "Silahkan periksa email anda untuk melakukan verifikasi",
+      toast.success("Registrasi Berhasil", {
+        description: "Akun Anda telah dibuat. Silakan periksa email untuk verifikasi.",
       });
 
       router.replace("/");
       router.refresh();
     } catch (error: any) {
-      toast.error(error?.message || "Terjadi kesalahan saat mendaftar");
+      toast.error("Gagal Mendaftar", {
+        description: error?.message || "Terjadi kesalahan sistem saat memproses registrasi.",
+      });
     } finally {
       setIsLoading(false);
     }
