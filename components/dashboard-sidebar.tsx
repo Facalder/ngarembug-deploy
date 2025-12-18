@@ -4,10 +4,9 @@ import { MenuCircleIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
 import type * as React from "react";
-import { sidebarData, user } from "@/components/data/sidebar.data";
+import { sidebarData } from "@/components/data/sidebar.data";
 import SidebarNavGroups from "@/components/sidebar-nav-groups";
 import SidebarNavUser from "@/components/sidebar-nav-user";
-
 import {
   Sidebar,
   SidebarContent,
@@ -18,8 +17,17 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { authClient } from "@/lib/auth-client";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { data: session } = authClient.useSession();
+
+  const user = {
+    name: session?.user.name || "User",
+    email: session?.user.email || "",
+    avatar: session?.user.image || "",
+  };
+
   return (
     <Sidebar
       className="top-(--header-height) h-[calc(100svh-var(--header-height))]! bg-background!"
