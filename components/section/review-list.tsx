@@ -27,10 +27,16 @@ export function ReviewList({ reviews }: ReviewListProps) {
         );
     }
 
+    // DEMO: Specific request to show "many" reviews by duplicating if there are few
+    const displayReviews =
+        reviews.length > 0 && reviews.length < 5
+            ? [...reviews, ...reviews, ...reviews, ...reviews, ...reviews]
+            : reviews;
+
     return (
         <div className="space-y-6">
-            {reviews.map((review) => (
-                <div key={review.id} className="border-b pb-6 last:border-0 last:pb-0">
+            {displayReviews.map((review, index) => (
+                <div key={`${review.id}-${index}`} className="border-b pb-6 last:border-0 last:pb-0">
                     <div className="flex justify-between items-start mb-2">
                         <div className="flex items-center gap-3">
                             <Avatar className="w-10 h-10">

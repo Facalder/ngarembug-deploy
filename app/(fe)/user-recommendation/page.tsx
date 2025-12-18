@@ -72,6 +72,7 @@ export default function UserRecommendation() {
             toast.success("Rekomendasi Berhasil Dikirim!", {
                 description: "Terima kasih! Kami akan segera meninjau saran kafe Anda.",
             });
+            
             form.reset();
             router.push("/");
         } catch (error: any) {

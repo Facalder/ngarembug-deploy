@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Geist_Mono, Inter } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
 import "./styles/globals.css";
 
 const geistMono = Geist_Mono({
@@ -33,6 +34,7 @@ export default function RootLayout({
         className={`${interSans.variable} ${geistMono.variable} ${bricolageSans.variable} font-sans antialiased`}
       >
         {children}
+        <Toaster />
       </body>
     </html>
   );
