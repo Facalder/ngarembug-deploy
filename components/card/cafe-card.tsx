@@ -86,7 +86,7 @@ const CafeCardComponent = ({
                         <span className="flex items-center justify-center bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded-lg">
                             {rating ? Number(rating).toFixed(1) : "0.0"}
                         </span>
-                        <span className="text-sm font-bold text-foreground">Approved</span>
+                        <span className="text-sm font-bold text-foreground">Google Review</span>
                         <span className="text-xs text-muted-foreground">
                             ({reviewCount} Reviews)
                         </span>
@@ -99,7 +99,7 @@ const CafeCardComponent = ({
 
                     {/* Metadata: Region • Type • Distance */}
                     <div className="text-sm text-muted-foreground mb-4">
-                        {formatEnum(region, "Lokasi Belum Tersedia")} • {formatEnum(cafeType, "Tipe Belum Tersedia")} • {distance} km
+                        {formatEnum(region, "Lokasi Belum Tersedia")} • {formatEnum(cafeType, "Tipe Belum Tersedia")} • 300 meter dari Telkom University
                     </div>
 
                     {/* Info Grid */}

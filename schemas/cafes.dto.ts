@@ -16,6 +16,8 @@ export const createCafeSchema = z.object({
     message: "Tipe kafe wajib dipilih",
   }),
   capacity: z.coerce.number().min(0).default(0),
+  averageRating: z.coerce.number().min(0).max(5).default(0),
+  totalReviews: z.coerce.number().min(0).default(0),
 
   // Lokasi & Kontak
   region: z.enum(region.enumValues as [string, ...string[]], {
@@ -24,7 +26,7 @@ export const createCafeSchema = z.object({
   distance: z.coerce.number().min(0).default(0),
   address: z.string().min(1, "Alamat wajib diisi").max(255),
   phone: z.string().max(20).optional().nullable(),
-  email: z.string().email("Email tidak valid").max(100).optional().nullable(),
+  email: z.string().max(100).optional().nullable(),
   instagram: z.string().max(255).optional().nullable(),
   mapLink: z
     .string()
@@ -77,6 +79,8 @@ export const draftCafeSchema = z.object({
   // Detail Kafe
   cafeType: z.enum(cafeType.enumValues).optional().default("indoor_cafe"),
   capacity: z.coerce.number().min(0).default(0),
+  averageRating: z.coerce.number().min(0).max(5).default(0),
+  totalReviews: z.coerce.number().min(0).default(0),
 
   // Lokasi & Kontak
   region: z.enum(region.enumValues).optional().default("sukabirus"),

@@ -205,9 +205,9 @@ export function TableToolbar({
               {filter.options.map((option) => {
                 const currentValues = getFilterValue(filter.key);
 
-                // Check case-insensitively
+                // Check case-insensitively with safety
                 const isChecked = currentValues.some(
-                  (v) => v.toLowerCase() === String(option.value).toLowerCase(),
+                  (v) => (v ? String(v).toLowerCase() : "") === String(option.value).toLowerCase(),
                 );
 
                 return (
@@ -217,19 +217,19 @@ export function TableToolbar({
                     onCheckedChange={(checked) => {
                       const valueStr = String(option.value).toLowerCase();
                       const currentValuesLower = currentValues.map((v) =>
-                        v.toLowerCase(),
+                        v ? String(v).toLowerCase() : "",
                       );
                       let next: string[];
 
                       if (checked) {
                         if (!currentValuesLower.includes(valueStr)) {
-                          next = [...currentValues, valueStr];
+                          next = [...currentValues, String(option.value)];
                         } else {
                           next = currentValues;
                         }
                       } else {
                         next = currentValues.filter(
-                          (v) => v.toLowerCase() !== valueStr,
+                          (v) => (v ? String(v).toLowerCase() : "") !== valueStr,
                         );
                       }
                       handleFilter(filter.key, next);

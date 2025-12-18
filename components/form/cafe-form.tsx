@@ -128,6 +128,8 @@ export function CafeForm({ initialData }: CafeFormProps) {
           | "SUKABIRUS"
           | "SUKAPURA") || undefined,
       capacity: initialData?.capacity || 0,
+      averageRating: initialData?.averageRating || 0,
+      totalReviews: initialData?.totalReviews || 0,
       distance: initialData?.distance || 0,
       address: initialData?.address || "",
       phone: initialData?.phone || "",
@@ -440,6 +442,46 @@ export function CafeForm({ initialData }: CafeFormProps) {
                             })}
                           </SelectContent>
                         </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="averageRating"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Rating (0-5)</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            step="0.1"
+                            min="0"
+                            max="5"
+                            {...field}
+                            disabled={isMutating}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="totalReviews"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Total Reviews</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            min="0"
+                            {...field}
+                            disabled={isMutating}
+                          />
+                        </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
