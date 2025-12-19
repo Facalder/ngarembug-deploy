@@ -9,6 +9,7 @@ import { ReviewModal } from "@/components/modal/review-modal";
 import { ReviewList } from "@/components/section/review-list";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ResponsiveImage } from "@/components/ui/responsive-image";
 
 interface CafeDetailInfoProps {
     cafe: {
@@ -25,12 +26,16 @@ interface CafeDetailInfoProps {
         slug: string;
     }[];
     reviews: any[]; // Ideally strict type, but using any for now to match repository output quickly
+    gallery?: string[] | null;
+    menu?: string[] | null;
 }
 
 export function CafeDetailInfo({
     cafe,
     facilities,
     reviews,
+    gallery,
+    menu,
 }: CafeDetailInfoProps) {
     return (
         <div className="py-8 grid gap-8 md:grid-cols-[2fr_1fr]">
@@ -59,6 +64,48 @@ export function CafeDetailInfo({
                         </p>
                     )}
                 </section>
+
+                {menu && menu.length > 0 && (
+                    <section>
+                        <h2 className="text-2xl font-bold mb-4">Menu</h2>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {menu.map((src, idx) => (
+                                <div
+                                    key={idx}
+                                    className="relative aspect-square rounded-md overflow-hidden bg-muted"
+                                >
+                                    <ResponsiveImage
+                                        src={src}
+                                        alt={`Menu ${idx + 1}`}
+                                        className="w-full h-full"
+                                        sizes="(max-width: 768px) 50vw, 25vw"
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                )}
+
+                {gallery && gallery.length > 0 && (
+                    <section>
+                        <h2 className="text-2xl font-bold mb-4">Gallery</h2>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {gallery.map((src, idx) => (
+                                <div
+                                    key={idx.toString()}
+                                    className="relative aspect-square rounded-md overflow-hidden bg-muted"
+                                >
+                                    <ResponsiveImage
+                                        src={src}
+                                        alt={`Gallery ${idx + 1}`}
+                                        className="w-full h-full"
+                                        sizes="(max-width: 768px) 50vw, 25vw"
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                )}
 
                 <section>
                     <div className="flex items-center justify-between mb-6">

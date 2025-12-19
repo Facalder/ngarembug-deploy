@@ -79,6 +79,8 @@ export default async function CafeDetailPage({ params }: PageProps) {
                     cafe={cafe}
                     facilities={(cafe.facilities as { name?: string; slug: string }[]) || []}
                     reviews={reviews || []}
+                    gallery={cafe.gallery as string[]}
+                    menu={cafe.menu as string[]}
                 />
             </Container>
         </main>

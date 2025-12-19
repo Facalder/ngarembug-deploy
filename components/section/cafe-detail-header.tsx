@@ -35,7 +35,7 @@ export function CafeDetailHeader({ cafe }: CafeDetailHeaderProps) {
                     No Photos Available
                 </div>
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
 
             <div className="absolute bottom-0 left-0 p-6 md:p-12 text-white w-full container mx-auto">
                 <Badge className="mb-4 bg-primary text-primary-foreground hover:bg-primary/90 border-none capitalize">
