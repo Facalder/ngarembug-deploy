@@ -35,10 +35,10 @@ const cafesTable = pgTable.withRLS(
     distance: integer("distance").default(0), // Jarak dari Telkom University
 
     address: varchar("address", { length: 255 }).notNull(),
-    phone: varchar("phone", { length: 20 }).unique(),
-    email: varchar("email", { length: 100 }).unique(),
-    instagram: varchar("instagram", { length: 255 }).unique(),
-    mapLink: varchar("map_link", { length: 255 }).notNull().unique(),
+    phone: varchar("phone", { length: 20 }),
+    email: varchar("email", { length: 100 }),
+    instagram: varchar("instagram", { length: 255 }),
+    mapLink: varchar("map_link", { length: 255 }).notNull(),
 
     priceRange: priceRange("price_range").notNull(),
     pricePerPerson: integer("price_per_person").notNull().default(0),

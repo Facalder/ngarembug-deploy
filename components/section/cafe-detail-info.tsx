@@ -71,7 +71,7 @@ export function CafeDetailInfo({
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             {menu.map((src, idx) => (
                                 <div
-                                    key={idx}
+                                    key={idx.toString()}
                                     className="relative aspect-square rounded-md overflow-hidden bg-muted"
                                 >
                                     <ResponsiveImage
